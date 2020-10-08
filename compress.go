@@ -3,7 +3,11 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"log"
 	"os/exec"
+	"sync"
+
+	"github.com/astaxie/beego/orm"
 )
 
 /*
@@ -31,6 +35,15 @@ func compress(gs, inFilePath, outFilePath string, power int) {
 		fmt.Printf("Error: %s\n", err)
 		return
 	}
-	//test in ArchLinux
-	fmt.Printf("The output is: %s\n", output.Bytes()) //The output is: Hello World!
+	fmt.Printf("The output is: %s\n", output.Bytes())
+}
+
+// Compress handels pdf compression
+func Compress(pdfInfo orm.Params, wait *sync.WaitGroup) {
+	defer func() { //Exception handling
+		if err := recover(); err != nil {
+			log.Println("Compress error：", err, pdfInfo)
+			return
+		}
+	}()
 }
