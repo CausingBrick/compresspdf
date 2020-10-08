@@ -19,6 +19,8 @@ type Conf struct {
 	DBPort        string
 	DBUser        string
 	DBPsd         string
+	DBName        string
+	TBName        string
 }
 
 //GetSettings retires the datas in configFile
@@ -33,6 +35,8 @@ func GetSettings(configFile string) (*Conf, error) {
 		DBPort: cnf.String("dbPort"),
 		DBUser: cnf.String("dbUser"),
 		DBPsd:  cnf.String("dbPsd"),
+		DBName: cnf.String("dbName"),
+		TBName: cnf.String("tbName"),
 	}
 	conf.HandelNum, err = cnf.Int("handelNum")
 	if err != nil {
