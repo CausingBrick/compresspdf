@@ -1,3 +1,5 @@
 compressor.py
 *.pdf
 compresspdf
+*.exe
+.vscode/tasks.json
