@@ -3,3 +3,5 @@ compressor.py
 compresspdf
 *.exe
 .vscode/tasks.json
+buidexe.sh
+conf/mine.conf

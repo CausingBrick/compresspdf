@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"log"
 	"os/exec"
 	"path"
@@ -28,7 +27,6 @@ func compress(gs, inFilePath, outFilePath string, power int) error {
 		inFilePath}
 
 	cmd := exec.Command(gs, arg...)
-	fmt.Println(cmd.String())
 	var output bytes.Buffer
 	cmd.Stdout = &output
 	err := cmd.Run()
@@ -45,11 +43,9 @@ func Compress(pdfInfoCh <-chan orm.Params, wait *sync.WaitGroup) {
 		}
 	}()
 	for pdfInfo := range pdfInfoCh {
-		fmt.Println(pdfInfo)
 		//Creat outputFile name
 		outputFile := path.Join(appConf.OutputPath, pdfInfo["guid"].(string)+".pdf")
 		//start compress
-		fmt.Println(appConf.GSPath, pdfInfo["file_path"].(string), outputFile)
 		err := compress(appConf.GSPath, pdfInfo["file_path"].(string), outputFile, appConf.CompressLevel)
 		if err != nil {
 			log.Println(ErrorStr, "Error compression:", pdfInfo, err)

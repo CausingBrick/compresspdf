@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"strconv"
 
 	"github.com/astaxie/beego/orm"
@@ -21,7 +20,6 @@ func GetPdfInfos() (*[]orm.Params, error) {
 	queryStr := "Select " + appConf.PDFPK + "," + appConf.PDFInput +
 		" from " + appConf.TBName +
 		" where " + appConf.PDFCompressState + " ='" + strconv.Itoa(UnCompressed) + "'"
-	fmt.Println(UnCompressed, queryStr)
 
 	//Query datas.
 	res := new([]orm.Params)

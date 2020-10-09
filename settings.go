@@ -56,7 +56,7 @@ func GetSettings(configFile string) (*Conf, error) {
 		PDFPK:            cnf.String("PDFPK"),
 		PDFInput:         cnf.String("PDFInput"),
 		PDFOutput:        cnf.String("PDFOutput"),
-		PDFCompressState: cnf.String("CompressState"),
+		PDFCompressState: cnf.String("pdfCompressState"),
 	}
 	conf.HandelNum, err = cnf.Int("handelNum")
 	if err != nil {
