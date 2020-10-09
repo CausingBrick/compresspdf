@@ -9,18 +9,32 @@ import (
 // Conf maps the fields of settings.conf
 type Conf struct {
 	//GSPath is the path of gswin64.exe
-	GSPath string
+	GSPath     string
+	InputPath  string
+	OutputPath string
 	//HandelNum is the pdf compression goroutine numbers.
-	HandelNum     int
-	InputPath     string
-	OutputPath    string
+	HandelNum int
+	// 	# Compression levels:
+	// #   0: default
+	// #   1: prepress
+	// #   2: printer
+	// #   3: ebook
+	// #   4: screen
+	CompressLevel int
+	// Time to retire pdf info data form database
 	RefreshMinute time.Duration
-	DBIP          string
-	DBPort        string
-	DBUser        string
-	DBPsd         string
-	DBName        string
-	TBName        string
+	// Database info
+	DBIP   string
+	DBPort string
+	DBUser string
+	DBPsd  string
+	DBName string
+	TBName string
+	//  These fileds map to table's filed
+	PDFPK            string
+	PDFInput         string
+	PDFOutput        string
+	PDFCompressState string
 }
 
 //GetSettings retires the datas in configFile
@@ -30,15 +44,25 @@ func GetSettings(configFile string) (*Conf, error) {
 		return nil, err
 	}
 	conf := &Conf{
-		GSPath: cnf.String("gsPath"),
-		DBIP:   cnf.String("dbIP"),
-		DBPort: cnf.String("dbPort"),
-		DBUser: cnf.String("dbUser"),
-		DBPsd:  cnf.String("dbPsd"),
-		DBName: cnf.String("dbName"),
-		TBName: cnf.String("tbName"),
+		GSPath:           cnf.String("gsPath"),
+		InputPath:        cnf.String("inputPath"),
+		OutputPath:       cnf.String("outputPath"),
+		DBIP:             cnf.String("dbIP"),
+		DBPort:           cnf.String("dbPort"),
+		DBUser:           cnf.String("dbUser"),
+		DBPsd:            cnf.String("dbPsd"),
+		DBName:           cnf.String("dbName"),
+		TBName:           cnf.String("tbName"),
+		PDFPK:            cnf.String("PDFPK"),
+		PDFInput:         cnf.String("PDFInput"),
+		PDFOutput:        cnf.String("PDFOutput"),
+		PDFCompressState: cnf.String("CompressState"),
 	}
 	conf.HandelNum, err = cnf.Int("handelNum")
+	if err != nil {
+		return conf, err
+	}
+	conf.CompressLevel, err = cnf.Int("compressLevel")
 	if err != nil {
 		return conf, err
 	}
